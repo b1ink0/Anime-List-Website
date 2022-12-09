@@ -1,0 +1,71 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+  Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+@layer base {
+  #root {
+    --black: #000000ff;
+    --black-sub: #111111ff;
+    --jet: #333333ff;
+    --white: #ffffffff;
+    --flickr-blue: #0761d1ff;
+    --french-rose: #ea558dff;
+    --dash-offset: 252;
+    background: var(--black-sub);
+    color: var(--white);
+  }
+  .bg-sub {
+    background: var(--balck-sub)
+  }
+  .bg-main {
+    background: var(--black)
+  }
+}
+
+@layer utilities {
+  .full-flex {
+    @apply flex justify-center items-center text-center;
+  }
+  .half-flex {
+    @apply flex justify-center items-center;
+  }
+  .w-screen-half {
+    width: 50vw;
+  }
+}
+
+.hide_dot {
+  .alice-carousel {
+      .alice-carousel__dots {
+          display: none;
+      }
+  }
+}
+.scale_image {
+  img {
+    width: calc(100vw - 50px);
+  }
+}
+.transition_image {
+  img {
+    transition: all 0.3s ease;
+  }
+}
+.translate-25 {
+  transform: translateX(-50vw);
+  overflow: hidden;
+  .alice-container {
+    transform: translateX(25vw);
+  }
+}

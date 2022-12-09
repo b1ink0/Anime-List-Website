@@ -1,0 +1,26 @@
+.ratings_container {
+    background-color: red;
+    div {
+        svg {
+            overflow: visible;
+            circle {
+                overflow: visible;
+                fill: none;
+                stroke: cyan;
+                stroke-width: 10;
+                stroke-linecap: round;
+                stroke-dasharray: 252;
+                stroke-dashoffset: 252;
+                animation: rate 1.5s ease-in-out forwards;
+            }
+        }
+    }
+    @keyframes rate {
+        0%{
+            stroke-dashoffset: 252;
+        }
+        100% {
+            stroke-dashoffset: var(--dash-offset);
+        }
+    }
+}
