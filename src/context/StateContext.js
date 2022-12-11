@@ -10,6 +10,12 @@ export const useStateContext = () => {
 export const StateProvider = ({ children }) => {
   const rootRef = useRef(null);
   const [currentSearchResult, setCurrentSearchResult] = useState([]);
+  const [topAiringList, setTopAiringList] = useState([])
+  const [allTimeTopList, setAllTimeTopList] = useState([])
+  const [topMoviesList, setTopMoviesList] = useState([])
+  const [topUpcomingList, setTopUpcomingList] = useState([])
+  const [rankingList, setRankingList] = useState({airing: [], all: [], moive: [], upcoming: []})
+  const [rankingListScroll, setRankingListScroll] = useState({airing: 0, all: 0, moive: 0, upcoming: 0})
   const [atHome, setAtHome] = useState(true)
   const [currentQuery, setCurrentQuery] = useState("");
   const [scroll, setScroll] = useState(0);
@@ -17,6 +23,18 @@ export const StateProvider = ({ children }) => {
     rootRef,
     currentSearchResult,
     setCurrentSearchResult,
+    topAiringList,
+    setTopAiringList,
+    allTimeTopList,
+    setAllTimeTopList,
+    topMoviesList,
+    setTopMoviesList,
+    topUpcomingList,
+    setTopUpcomingList,
+    rankingList,
+    setRankingList,
+    rankingListScroll,
+    setRankingListScroll,
     atHome,
     setAtHome,
     currentQuery,

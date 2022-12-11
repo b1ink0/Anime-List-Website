@@ -11,7 +11,16 @@ export default function Home() {
   const {
     currentSearchResult,
     setCurrentSearchResult,
-    atHome, setAtHome,
+    topAiringList,
+    setTopAiringList,
+    allTimeTopList,
+    setAllTimeTopList,
+    topMoviesList,
+    setTopMoviesList,
+    topUpcomingList,
+    setTopUpcomingList,
+    atHome,
+    setAtHome,
     currentQuery,
     setCurrentQuery,
     scroll,
@@ -32,7 +41,17 @@ export default function Home() {
         setCurrentQuery={setCurrentQuery}
         setAtHome={setAtHome}
       />
-      {atHome ? <Ranking /> :
+      {atHome ?
+        <Ranking 
+          topAiringList={topAiringList}
+          setTopAiringList={setTopAiringList}
+          allTimeTopList={allTimeTopList}
+          setAllTimeTopList={setAllTimeTopList}
+          topMoviesList={topMoviesList}
+          setTopMoviesList={setTopMoviesList}
+          topUpcomingList={topUpcomingList}
+          setTopUpcomingList={setTopUpcomingList}
+        /> :
         <SearchResult
           currentSearchResult={currentSearchResult}
           setCurrentSearchResult={setCurrentSearchResult}

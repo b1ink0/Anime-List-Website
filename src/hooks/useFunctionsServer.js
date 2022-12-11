@@ -37,6 +37,7 @@ export default function useFunctionsServer() {
   const handleAnimeRanking = async (
     query
   ) => {
+    console.log(query)
     let data = {};
     await anime({
       client_id: process.env.NEXT_PUBLIC_CLIENT_ID,

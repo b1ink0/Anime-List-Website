@@ -12,11 +12,12 @@ export default function SearchResult({
   setScroll,
 }) {
   const { handleSearchAnimeByName } = useFunctionsClient();
-  const [offset, setOffset] = useState(20);
+  const [offset, setOffset] = useState(5);
   const router = useRouter();
   const scrollDivRef = useRef(null);
   //
   const handleScroll = () => {
+    console.log("offset: ", offset)
     handleSearchAnimeByName(
       currentQuery,
       5,
