@@ -5,28 +5,13 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import useFunctionsClient from "../hooks/useFunctionsClient";
 
 export default function RankingMain({
-    rankingList,
-    setRankingList,
-    currentQuery,
-    rankingListScroll,
-    setRankingListScroll,
+    currentQuery
 }) {
     const { handleAnimeRanking } = useFunctionsClient();
-    const [offset, setOffset] = useState(100);
-    const [list, setList] = useState([])
+    const [offset, setOffset] = useState(0);
+    const [rankingList, setRankingList] = useState([])
     const router = useRouter();
     const scrollDivRef = useRef(null);
-    //
-    const handleRankingListUpdate = (tempList) => {
-        if (currentQuery == "airing")
-            setRankingList(rankingList => ({ ...rankingList, airing: tempList }));
-        if (currentQuery == "all")
-            setRankingList(rankingList => ({ ...rankingList, all: tempList }));
-        if (currentQuery == "upcoming")
-            setRankingList(rankingList => ({ ...rankingList, upcoming: tempList }));
-        if (currentQuery == "movie")
-            setRankingList(rankingList => ({ ...rankingList, movie: tempList }));
-    }
     //
     const handleScroll = () => {
         handleAnimeRanking(
@@ -37,9 +22,9 @@ export default function RankingMain({
         )
             .then((d) => {
                 console.log(d, offset)
-                let tempList = rankingList[currentQuery].concat(d.data)
+                let tempList = rankingList.concat(d.data)
                 console.log(rankingList);
-                handleRankingListUpdate(tempList)
+                setRankingList(()=> tempList)
                 setOffset((offset) => offset + 5);
             })
             .catch((err) => {
@@ -60,10 +45,6 @@ export default function RankingMain({
         // }
     }, []);
     //
-    useEffect(()=>{
-        setList(rankingList[currentQuery])
-    },[rankingList])
-    //
     return (
         <section className="relative w-full full-flex">
             <div
@@ -73,14 +54,14 @@ export default function RankingMain({
                 style={{ overflow: "auto" }}
             >
                 <InfiniteScroll
-                    dataLength={list.length}
+                    dataLength={rankingList.length}
                     next={handleScroll}
                     hasMore={true}
                     loader={<h4>Loading...</h4>}
                     scrollableTarget="scrollableDiv"
                 >
-                    {list.length &&
-                        list.map((d) => (
+                    {rankingList.length &&
+                        rankingList.map((d) => (
                             <div
                                 onClick={() => handleLink(d.node.id)}
                                 key={Math.random()}

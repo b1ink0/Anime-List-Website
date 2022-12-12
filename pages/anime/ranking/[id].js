@@ -1,8 +1,8 @@
 import { useRouter } from "next/router";
-import Footer from "../../../src/components/Footer";
-import Navbar from "../../../src/components/Navbar";
-import NotFound from "../../../src/components/NotFound";
-import RankingMain from "../../../src/components/RankingMain";
+import Footer from "../../../src/sub-components/Footer";
+import Navbar from "../../../src/sub-components/Navbar";
+import NotFound from "../../../src/sub-components/NotFound";
+import RankingMain from "../../../src/components/AnimeRankingMain";
 import { useStateContext } from "../../../src/context/StateContext";
 
 export default function Ranking({ prevRoute }) {

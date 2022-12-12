@@ -25,6 +25,7 @@ export default function AnimeDetails({ animeId }) {
   }, []);
   //
   useEffect(() => {
+    console.log(details)
     if (details.mean) {
       console.log(details)
       document
@@ -32,6 +33,14 @@ export default function AnimeDetails({ animeId }) {
         .style.setProperty(
           "--dash-offset",
           Math.floor(252 - 25.2 * details.mean)
+        );
+    } else {
+      console.log(details)
+      document
+        .getElementById("root")
+        .style.setProperty(
+          "--dash-offset",
+          252
         );
     }
     if (details.pictures && !pictures.length) {

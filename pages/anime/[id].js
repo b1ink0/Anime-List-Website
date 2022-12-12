@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
-import Footer from "../../src/components/Footer";
-import Navbar from "../../src/components/Navbar";
+import Footer from "../../src/sub-components/Footer";
+import Navbar from "../../src/sub-components/Navbar";
 import AnimeDetails from "../../src/components/AnimeDetails";
 import { useStateContext } from "../../src/context/StateContext";
 

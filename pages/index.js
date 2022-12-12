@@ -1,9 +1,9 @@
 import Head from "next/head";
 import { useEffect } from "react";
-import Footer from "../src/components/Footer";
-import Navbar from "../src/components/Navbar";
-import Ranking from "../src/components/Ranking";
-import SearchResult from "../src/components/SearchResult";
+import Footer from "../src/sub-components/Footer";
+import Navbar from "../src/sub-components/Navbar";
+import Ranking from "../src/components/AnimeRankingHome";
+import SearchResult from "../src/components/AnimeSearchResult";
 import { useStateContext } from "../src/context/StateContext";
 import useFunctionsClient from "../src/hooks/useFunctionsClient";
 

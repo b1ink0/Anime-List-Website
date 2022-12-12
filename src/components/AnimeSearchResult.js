@@ -25,7 +25,14 @@ export default function SearchResult({
       "id,title,main_picture,mean"
     )
       .then((d) => {
-        setCurrentSearchResult((currentQuery) => currentQuery.concat(d));
+        let tempResult = currentSearchResult.concat(d)
+        tempResult = tempResult.filter((value, index) => {
+          const _value = JSON.stringify(value);
+          return index === tempResult.findIndex(obj => {
+            return JSON.stringify(obj) === _value;
+          });
+        });
+        setCurrentSearchResult(() => tempResult);
         setOffset((offset) => offset + 5);
       })
       .catch((err) => {

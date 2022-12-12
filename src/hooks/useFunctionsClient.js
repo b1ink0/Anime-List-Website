@@ -45,7 +45,6 @@ export default function useFunctionsClient() {
   //
   const handleAnimeRanking = async (ranking_type = "all", limit = undefined, offset = undefined,
     fields = undefined) => {
-      console.log("offset: ",offset)
     let data = {};
     let config = {
       ranking_type: ranking_type,
@@ -60,15 +59,60 @@ export default function useFunctionsClient() {
         data = d.data;
       }
     });
-    console.log(data)
+    return data;
+  };
+  //
+  const handleAnimeSeasonal = async (year = handleCurrentYear, season = handleCurrentSeason(), sort = "anime_num_list_users",limit = undefined, offset = undefined,
+    fields = undefined) => {
+    let data = {};
+    let config = {
+      year: year,
+      season: season,
+      sort: sort,
+      limit: limit,
+      offset: offset,
+      fields: fields,
+    };
+    await axios.get("/api/anime_seasonal", { params: config }).then((d) => {
+      if (d.data.error) {
+        data = { error: d.data.error };
+      } else {
+        data = d.data;
+      }
+    });
     return data;
   };
   //
   const handleTextCrop = (text, crop) => {
     if (text.length > crop)
-      return text.slice(0,crop) + "..."
+      return text.slice(0, crop) + "..."
     else return text
   }
   //
-  return { handleSearchAnimeByName, handleAnimeDetails, handleAnimeRanking, handleTextCrop };
+  const handleCurrentSeason = () => {
+    const monthIndex = new Date().getMonth()
+    if (monthIndex >= 0 && monthIndex <= 2)
+      return "winter"
+    if (monthIndex >= 3 && monthIndex <= 5)
+      return "spring"
+    if (monthIndex >= 6 && monthIndex <= 8)
+      return "summer"
+    if (monthIndex >= 9 && monthIndex <= 11)
+      return "fall"
+  }
+  //
+  const handleCurrentYear = () => {
+    const year = new Date().getFullYear()
+    return year
+  }
+  //
+  const handleSeasonExist = (season) => {
+    let seasons = ["winter", "spring", "summer", "fall"]
+    seasons = seasons.slice(0, seasons.indexOf(handleCurrentSeason()) + 1) 
+    if (seasons.indexOf(season) >= 0)
+      return true
+    return false
+  }
+  //
+  return { handleSearchAnimeByName, handleAnimeDetails, handleAnimeRanking, handleAnimeSeasonal, handleTextCrop, handleCurrentSeason, handleCurrentYear, handleSeasonExist };
 }

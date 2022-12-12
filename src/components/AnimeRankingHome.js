@@ -22,7 +22,7 @@ function Ranking({
     };
     //
     useEffect(() => {
-        handleAnimeRanking("airing", 10,10)
+        handleAnimeRanking("airing", 10)
             .then((d) => {
                 console.log(d.data);
                 setTopAiringList(d.data)

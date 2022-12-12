@@ -37,13 +37,12 @@ export default function useFunctionsServer() {
   const handleAnimeRanking = async (
     query
   ) => {
-    console.log(query)
     let data = {};
     await anime({
       client_id: process.env.NEXT_PUBLIC_CLIENT_ID,
       ranking_type: query.ranking_type,
       limit: query.limit ? query.limit : undefined,
-      offset: query.offset ? query.offset : undefined,
+      offset: query.offset ? `=${query.offset}` : undefined,
       fields: query.fields ? query.offset : undefined,
     })
       .anime_ranking()()
@@ -51,6 +50,25 @@ export default function useFunctionsServer() {
       .catch((err) => { console.log(err) });
     return data;
   };
-
-  return { handleSearchAnimeByName, handleAnimeDetails, handleAnimeRanking };
+  //
+  const handleAnimeSeasonal = async (
+    query
+  ) => {
+    let data = {};
+    await anime({
+      client_id: process.env.NEXT_PUBLIC_CLIENT_ID,
+      year: query.year ? query.year : undefined,
+      season: query.season ? query.season : undefined,
+      sort: query.sort ? query.sort : undefined,
+      limit: query.limit ? query.limit : undefined,
+      offset: query.offset ? query.offset : undefined,
+      fields: query.fields ? query.offset : undefined,
+    })
+      .seasonal_anime()()
+      .then((d) => (data = d))
+      .catch((err) => { console.log(err) });
+    return data;
+  };
+  //
+  return { handleSearchAnimeByName, handleAnimeDetails, handleAnimeSeasonal, handleAnimeRanking };
 }
