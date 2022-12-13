@@ -8,7 +8,7 @@ export default function Anime({ prevRoute }) {
   const router = useRouter();
   return (
     <>
-      <Navbar searchOn={false} prevRoute={prevRoute} />
+      <Navbar prevRoute={prevRoute} />
       {router.query.id && <AnimeDetails animeId={router.query.id} />}
       <Footer />
     </>

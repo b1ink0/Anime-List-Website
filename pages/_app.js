@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { StateProvider } from "../src/context/StateContext";
 import "../styles/globals.scss";
 import "../styles/Ratings.scss";
+import "../styles/Scroll.scss"
 
 let prevRoute;
 let currentRoute;

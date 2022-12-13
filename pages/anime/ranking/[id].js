@@ -17,7 +17,7 @@ export default function Ranking({ prevRoute }) {
   if (!["upcoming", "movie", "all", "airing"].includes(router.query.id))
     return (
       <>
-        <Navbar searchOn={false} prevRoute={prevRoute} />
+        <Navbar prevRoute={prevRoute} />
         <NotFound />
         <Footer />
       </>
@@ -25,7 +25,7 @@ export default function Ranking({ prevRoute }) {
   //
   return (
     <>
-      <Navbar searchOn={false} prevRoute={prevRoute} />
+      <Navbar prevRoute={prevRoute} />
       <RankingMain
         rankingList={rankingList}
         setRankingList={setRankingList}

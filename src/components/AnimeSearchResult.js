@@ -4,15 +4,12 @@ import React, { useEffect, useRef, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import useFunctionsClient from "../hooks/useFunctionsClient";
 
-export default function SearchResult({
-  currentSearchResult,
-  setCurrentSearchResult,
-  currentQuery,
-  scroll,
-  setScroll,
-}) {
+export default function AnimeSearchResult({ currentQuery }){
+  //
   const { handleSearchAnimeByName } = useFunctionsClient();
-  const [offset, setOffset] = useState(5);
+  const [currentSearchResult, setCurrentSearchResult] = useState([])
+  const [offset, setOffset] = useState(0);
+  const [flag, setFlag] = useState(false)
   const router = useRouter();
   const scrollDivRef = useRef(null);
   //
@@ -41,16 +38,34 @@ export default function SearchResult({
   };
   //
   const handleLink = (id) => {
-    setScroll(scrollDivRef.current.scrollTop);
     router.push(`/anime/${id}`);
   };
   //
   useEffect(() => {
     console.log(currentSearchResult);
-    if (scroll > 0) {
-      scrollDivRef.current.scrollTop = scroll;
-    }
+    handleScroll()
+    setFlag(true)
   }, []);
+  //
+  useEffect(() => {
+    if (flag){
+      console.log("HMM")
+      setCurrentSearchResult(() => [])
+    }
+  }, [currentQuery])
+  //
+  useEffect(() => {
+    if (flag && currentSearchResult.length === 0){
+      setOffset(() => 0)
+    }
+  }, [currentSearchResult])
+  //
+  useEffect(() => {
+    if (flag && offset === 0){
+      console.log("OFFSET")
+      handleScroll()
+    }
+  }, [offset])
   //
   return (
     <section className="relative w-full full-flex">

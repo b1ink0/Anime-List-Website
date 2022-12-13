@@ -1,48 +1,50 @@
 // import Styles from "../../../styles/Navbar.module.scss";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
 import Link from "next/link";
 import useFunctionsClient from "../hooks/useFunctionsClient";
+import { useStateContext } from "../context/StateContext";
+import { useEffect } from "react";
+import SearchIcon from "../images/searchIcon";
 
 export default function Navbar({
-  currentSearchResult,
-  setCurrentSearchResult,
-  currentQuery,
-  setCurrentQuery,
   searchOn = true,
-  prevRoute = undefined,
-  setAtHome
+  query = "",
+  prevRoute = undefined
 }) {
+
+  const { setCurrentSearchResult, currentQuery, setCurrentQuery, setAtHome} = useStateContext()
   const { handleSearchAnimeByName } = useFunctionsClient();
   const router = useRouter();
   //
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleSearchAnimeByName(currentQuery, 5, 0, "id,title,main_picture,mean")
-      .then((d) => {
-        setCurrentSearchResult(d);
-        setAtHome(false)
-      })
-      .catch((err) => {
-        setCurrentSearchResult([]);
-      });
+    router.push({
+      pathname: "/anime/search",
+      query: {name: currentQuery}
+    })
   };
-
+  //
+  useEffect(() => {
+    if (query !== "")
+      setCurrentQuery(query)
+    console.log("Query:", query)
+  }, [query])
+  //
   return (
-    <nav className="bg-main full-flex flex-col h-[60px] bg-blue-400">
+    <nav className="bg-[color:var(--black)] w-full pb-3 full-flex flex-col h-[60px] border-b-2 border-[color:var(--red-border)]">
       <Link href="/">
-        <h1 className="text-skin-flick">WAL</h1>
+        <h1 className="text-skin-flick">AnimeVoid</h1>
       </Link>
       {searchOn ? (
-        <form className="full-flex" onSubmit={(e) => handleSubmit(e)}>
+        <form className="full-flex relative w-2/3" onSubmit={(e) => handleSubmit(e)}>
           <input
-            className="bg-blue-600"
+            className="w-full h-7 pl-3 pr-8 bg-[color:var(--black)] outline-none border-2 rounded-full border-[color:var(--red-border)]"
             type="text"
             value={currentQuery}
             minLength="3"
             onChange={(e) => setCurrentQuery(e.target.value)}
           />
-          <button>Search</button>
+          <button className="absolute right-3"><SearchIcon/></button>
         </form>
       ) : (
         <Link href="/">

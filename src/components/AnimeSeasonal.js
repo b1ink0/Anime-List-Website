@@ -115,15 +115,15 @@ export default function AnimeSeasonal() {
         <section className="relative w-full full-flex">
             <div className="flex flex-col w-full">
                 <div className="flex w-full h-8 justify-evenly items-center">
-                    <button onClick={() => handleYearSeasonChange("next")}>Next</button>
+                    <button className='border-2 pr-1 pl-1' onClick={() => handleYearSeasonChange("next")}>Next</button>
                     <h1>{currentYear}</h1>
-                    <button onClick={() => handleYearSeasonChange("prev")}>Prev</button>
+                    <button className='border-2 pr-1 pl-1' onClick={() => handleYearSeasonChange("prev")}>Prev</button>
                 </div>
                 <div className='flex w-full h-8 justify-evenly items-center'>
-                    <button className={ currentSeason === "winter" ? "bg-red-400" : ""} onClick={() => handleYearSeasonChange("winter")}>Winter</button>
-                    <button className={ currentSeason === "spring" ? "bg-red-400" : ""} onClick={() => handleYearSeasonChange("spring")}>Spring</button>
-                    <button className={ currentSeason === "summer" ? "bg-red-400" : ""} onClick={() => handleYearSeasonChange("summer")}>Summer</button>
-                    <button className={ currentSeason === "fall" ? "bg-red-400" : ""} onClick={() => handleYearSeasonChange("fall")}>Fall</button>
+                    <button className={`border-2 pr-1 pl-1 ${currentSeason === "winter" ? "bg-red-400" : ""}`} onClick={() => handleYearSeasonChange("winter")}>Winter</button>
+                    <button className={`border-2 pr-1 pl-1 ${currentSeason === "spring" ? "bg-red-400" : ""}`} onClick={() => handleYearSeasonChange("spring")}>Spring</button>
+                    <button className={`border-2 pr-1 pl-1 ${currentSeason === "summer" ? "bg-red-400" : ""}`} onClick={() => handleYearSeasonChange("summer")}>Summer</button>
+                    <button className={`border-2 pr-1 pl-1 ${currentSeason === "fall" ? "bg-red-400" : ""}`} onClick={() => handleYearSeasonChange("fall")}>Fall</button>
                 </div>
             </div>
             <div
