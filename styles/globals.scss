@@ -17,13 +17,15 @@ body {
   #root {
     --black: #000000ff;
     --black-sub: #111111ff;
-    --jet: #333333ff;
-    --white: #ffffffff;
-    --red-border: #d60000;
+    --jet: rgb(28, 28, 28);
+    --white: #e0e0e0;
+    --red-border: #a40000;
     --flickr-blue: #0761d1ff;
     --french-rose: #ea558dff;
+    --base-color: #121212;
+    --highlight-color: #282828;
     --dash-offset: 252;
-    background: var(--black-sub);
+    background: var(--black);
     color: var(--white);
   }
   .bg-sub {

@@ -4,7 +4,7 @@ import Link from "next/link";
 import useFunctionsClient from "../hooks/useFunctionsClient";
 import { useStateContext } from "../context/StateContext";
 import { useEffect } from "react";
-import SearchIcon from "../images/searchIcon";
+import SearchIcon from "../images/SearchIcon";
 
 export default function Navbar({
   searchOn = true,
@@ -31,7 +31,7 @@ export default function Navbar({
   }, [query])
   //
   return (
-    <nav className="bg-[color:var(--black)] w-full pb-3 full-flex flex-col h-[60px] border-b-2 border-[color:var(--red-border)]">
+    <nav className="bg-[color:var(--black)] w-full pb-3 full-flex flex-col h-[60px] bg-[color:var(--jet)] rounded-br-3xl rounded-bl-3xl">
       <Link href="/">
         <h1 className="text-skin-flick">AnimeVoid</h1>
       </Link>
@@ -42,6 +42,7 @@ export default function Navbar({
             type="text"
             value={currentQuery}
             minLength="3"
+            placeholder="Search..."
             onChange={(e) => setCurrentQuery(e.target.value)}
           />
           <button className="absolute right-3"><SearchIcon/></button>

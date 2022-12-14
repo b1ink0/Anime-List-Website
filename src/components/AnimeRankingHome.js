@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react'
 import { useRouter } from "next/router";
 import useFunctionsClient from '../hooks/useFunctionsClient'
 import ArrowIcon from '../images/ArrowIcon';
-import Skeleton from 'react-loading-skeleton'
 import { useStateContext } from '../context/StateContext';
+import 'react-loading-skeleton/dist/skeleton.css'
+import Skeleton from '../sub-components/Skeleton';
+
 
 function Ranking() {
     const { topAiringList,
@@ -60,9 +62,9 @@ function Ranking() {
     return (
         <section className="bg-[color:var(--black)] relative w-full full-flex flex-col mb-[60px]">
             <div className="full-flex flex-col">
-                <h4 className="mt-3 mb-3 rounded-full border-2 w-40 border-[color:var(--red-border)]">Top Airing</h4>
+                <h4 className="mt-3 mb-3 rounded-full border-2 w-40 border-[color:var(--red-border)]"  onClick={() => handleLink("ranking/airing")}>Top Airing</h4>
                 <div className='flex w-screen overflow-x-auto scrollable_div pb-3'>
-                    <div className="flex h-48">
+                    <div className={`flex h-48 ${topAiringList.length ? "ranking_card" : ""}`}>
                         {topAiringList.length ?
                             topAiringList.map((d) => (
                                 <div
@@ -71,13 +73,13 @@ function Ranking() {
                                     className="w-28 h-48 ml-3 overflow-hidden relative full-flex flex-col rounded-lg border-2 border-[color:var(--red-border)]"
                                 >
                                     <img
-                                        className="w-28 translate-y-[0px] scale-[1.15] absolute top-0"
+                                        className="w-28 translate-y-[0px] scale-[1.15] absolute top-0 transition-opacity"
                                         src={d.node.main_picture.medium}
                                         alt={d.node.title}
                                     />
                                     <h1 className="w-full h-7 pb-1 pl-1 pr-1 absolute bottom-0 bg-[color:var(--black)] truncate border-t-2 border-[color:var(--red-border)]">{handleTextCrop(d.node.title, 15)}</h1>
                                 </div>
-                            )) : <h4>Loading...</h4>}
+                            )) : <Skeleton/>}
                         {topAiringList.length && (
                             <div
                                 onClick={() => handleLink("ranking/airing")}
@@ -92,9 +94,9 @@ function Ranking() {
                 </div>
             </div>
             <div className="full-flex flex-col">
-                <h4 className="mt-3 mb-3 rounded-full border-2 w-40 border-[color:var(--red-border)]">All Time Top</h4>
+                <h4 className="mt-3 mb-3 rounded-full border-2 w-40 border-[color:var(--red-border)]"  onClick={() => handleLink("ranking/all")}>All Time Top</h4>
                 <div className='flex w-screen overflow-x-auto scrollable_div pb-3'>
-                    <div className="flex h-48">
+                    <div className={`flex h-48 ${allTimeTopList.length ? "ranking_card" : ""}`}>
                         {allTimeTopList.length ?
                             allTimeTopList.map((d) => (
                                 <div
@@ -103,13 +105,13 @@ function Ranking() {
                                     className="w-28 h-48 ml-3 overflow-hidden relative full-flex flex-col rounded-lg border-2 border-[color:var(--red-border)]"
                                 >
                                     <img
-                                        className="w-28 translate-y-[0px] scale-[1.15] absolute top-0"
+                                        className="w-28 translate-y-[0px] scale-[1.15] absolute top-0 transition-opacity"
                                         src={d.node.main_picture.medium}
                                         alt={d.node.title}
                                     />
                                     <h1 className="w-full h-7 pb-1 pl-1 pr-1 absolute bottom-0 bg-[color:var(--black)] truncate border-t-2 border-[color:var(--red-border)]">{handleTextCrop(d.node.title, 15)}</h1>
                                 </div>
-                            )) : <h4>Loading...</h4>}
+                            )) : <Skeleton/>}
                         {allTimeTopList.length && (
                             <div
                                 onClick={() => handleLink("ranking/all")}
@@ -124,9 +126,9 @@ function Ranking() {
                 </div>
             </div>
             <div className="full-flex flex-col">
-                <h4 className="mt-3 mb-3 rounded-full border-2 w-40 border-[color:var(--red-border)]">Top Movies</h4>
+                <h4 className="mt-3 mb-3 rounded-full border-2 w-40 border-[color:var(--red-border)]"  onClick={() => handleLink("ranking/movie")}>Top Movies</h4>
                 <div className='flex w-screen overflow-x-auto scrollable_div pb-3'>
-                    <div className="flex h-48">
+                    <div className={`flex h-48 ${topMoviesList.length ? "ranking_card" : ""}`}>
                         {topMoviesList.length ?
                             topMoviesList.map((d) => (
                                 <div
@@ -135,13 +137,13 @@ function Ranking() {
                                     className="w-28 h-48 ml-3 overflow-hidden relative full-flex flex-col rounded-lg border-2 border-[color:var(--red-border)]"
                                 >
                                     <img
-                                        className="w-28 translate-y-[0px] scale-[1.15] absolute top-0"
+                                        className="w-28 translate-y-[0px] scale-[1.15] absolute top-0 transition-opacity"
                                         src={d.node.main_picture.medium}
                                         alt={d.node.title}
                                     />
                                     <h1 className="w-full h-7 pb-1 pl-1 pr-1 absolute bottom-0 bg-[color:var(--black)] truncate border-t-2 border-[color:var(--red-border)]">{handleTextCrop(d.node.title, 15)}</h1>
                                 </div>
-                            )) : <h4>Loading...</h4>}
+                            )) : <Skeleton/>}
                         {topMoviesList.length && (
                             <div
                                 onClick={() => handleLink("ranking/movie")}
@@ -156,9 +158,9 @@ function Ranking() {
                 </div>
             </div>
             <div className="full-flex flex-col mb-3">
-                <h4 className="mt-3 mb-3 rounded-full border-2 w-40 border-[color:var(--red-border)]">Top Upcoming</h4>
+                <h4 className="mt-3 mb-3 rounded-full border-2 w-40 border-[color:var(--red-border)]"  onClick={() => handleLink("ranking/upcoming")}>Top Upcoming</h4>
                 <div className='flex w-screen overflow-x-auto scrollable_div pb-3'>
-                    <div className="flex h-48">
+                    <div className={`flex h-48 ${topUpcomingList.length ? "ranking_card" : ""}`}>
                         {topUpcomingList.length ?
                             topUpcomingList.map((d) => (
                                 <div
@@ -167,13 +169,13 @@ function Ranking() {
                                     className="w-28 h-48 ml-3 overflow-hidden relative full-flex flex-col rounded-lg border-2 border-[color:var(--red-border)]"
                                 >
                                     <img
-                                        className="w-28 translate-y-[0px] scale-[1.15] absolute top-0"
+                                        className="w-28 translate-y-[0px] scale-[1.15] absolute top-0 transition-opacity"
                                         src={d.node.main_picture.medium}
                                         alt={d.node.title}
                                     />
                                     <h1 className="w-full h-7 pb-1 pl-1 pr-1 absolute bottom-0 bg-[color:var(--black)] truncate border-t-2 border-[color:var(--red-border)]">{handleTextCrop(d.node.title, 15)}</h1>
                                 </div>
-                            )) : <h4>Loading...</h4>}
+                            )) : <Skeleton/>}
                         {topAiringList.length && (
                             <div
                                 onClick={() => handleLink("ranking/upcoming")}

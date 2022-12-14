@@ -4,6 +4,9 @@ import { StateProvider } from "../src/context/StateContext";
 import "../styles/globals.scss";
 import "../styles/Ratings.scss";
 import "../styles/Scroll.scss"
+import "../styles/Skeleton.scss"
+import "../styles/Ranking.scss"
+import 'react-loading-skeleton/dist/skeleton.css'
 
 let prevRoute;
 let currentRoute;
