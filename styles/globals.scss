@@ -5,12 +5,13 @@
 * {
   box-sizing: border-box;
 }
+
 html,
 body {
   padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-  Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
 @layer base {
@@ -24,13 +25,16 @@ body {
     --french-rose: #ea558dff;
     --base-color: #121212;
     --highlight-color: #282828;
+    --nav-size: 70px;
     --dash-offset: 252;
     background: var(--black);
     color: var(--white);
   }
+
   .bg-sub {
     background: var(--balck-sub)
   }
+
   .bg-main {
     background: var(--black)
   }
@@ -40,35 +44,81 @@ body {
   .full-flex {
     @apply flex justify-center items-center text-center;
   }
+
   .half-flex {
     @apply flex justify-center items-center;
   }
+
   .w-screen-half {
     width: 50vw;
+  }
+
+  .drag-none {
+    user-select: none;
+    -webkit-user-drag: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
   }
 }
 
 .hide_dot {
   .alice-carousel {
-      .alice-carousel__dots {
-          display: none;
-      }
+    .alice-carousel__dots {
+      display: none;
+    }
   }
 }
+
 .scale_image {
   img {
     width: calc(100vw - 50px);
   }
 }
+
 .transition_image {
   img {
     transition: all 0.3s ease;
   }
 }
+
 .translate-25 {
   transform: translateX(-50vw);
   overflow: hidden;
+
   .alice-container {
     transform: translateX(25vw);
   }
 }
+
+@-webkit-keyframes AnimationName {
+  0%{background-position:34% 0%}
+  50%{background-position:67% 100%}
+  100%{background-position:34% 0%}
+}
+@-moz-keyframes AnimationName {
+  0%{background-position:34% 0%}
+  50%{background-position:67% 100%}
+  100%{background-position:34% 0%}
+}
+@keyframes AnimationName {
+  0%{background-position:34% 0%}
+  50%{background-position:67% 100%}
+  100%{background-position:34% 0%}
+}
+
+.clip-path {
+  width: 220px;
+  display: flex;
+  background: linear-gradient(336deg, #ff1e1e, #430000, #ff0000);
+  background-size: 600% 600%;
+
+  -webkit-animation: AnimationName 10s ease infinite;
+  -moz-animation: AnimationName 10s ease infinite;
+  animation: AnimationName 10s ease infinite;
+  height: 71px;
+  transform: scale(0.7);
+  clip-path: path("M 219.83 35.545 C 219.83 29.195 197.09 23.66 163.46 20.77 L 184.225 0 H 165.61 L 146.045 19.565 L 134.045 31.565 L 125.835 39.78 C 125.71 39.78 125.955 39.78 125.835 39.78 L 112.8 52.815 V 0 H 99.635 L 99.425 0.225 L 80.425 19.225 C 34.03 21.23 0 27.775 0 35.545 C 0 41.5 19.87 46.7 49.925 49.72 L 29.115 70.53 L 29.455 70.865 H 47.395 L 67.13 51.13 C 77.275 51.795 88.2 52.225 99.63 52.39 V 70.825 L 113.36 70.865 L 132.105 52.115 C 182.175 50.535 219.83 43.715 219.83 35.545 Z M 42.05 36.26 Q 39.24 35.91 36.73 35.545 Q 39.23 35.185 42.05 34.83 C 49.69 33.87 58.16 33.085 67.155 32.49 L 61.455 38.19 C 54.57 37.66 48.055 37 42.05 36.26 Z M 85.09 33.17 L 86.915 31.45 L 99.635 18.63 V 39.885 C 92.635 39.78 85.705 39.575 79 39.265 M 177.78 36.265 C 168.05 37.5 157 38.42 145.18 39.045 L 151.795 32.43 C 161.12 33.035 169.89 33.84 177.795 34.83 Q 180.61 35.18 183.115 35.545 Q 180.59 35.905 177.78 36.26 Z");
+}
+

@@ -50,7 +50,7 @@ export default function RankingMain({
             <div
                 id="scrollableDiv"
                 ref={scrollDivRef}
-                className="fixed w-full top-[60px] h-[calc(100%_-_120px)]"
+                className="fixed w-full top-[var(--nav-size)] h-[calc(100%_-_120px)]"
                 style={{ overflow: "auto" }}
             >
                 <InfiniteScroll

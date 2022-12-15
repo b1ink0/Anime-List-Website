@@ -17,7 +17,7 @@ export default function Footer() {
     router.push("/")
   }
   return (
-    <div className="w-full flex justify-around items-center h-[60px] bg-[color:var(--jet)] fixed bottom-0 rounded-tr-3xl rounded-tl-3xl">
+    <div className="w-full flex justify-around items-center h-[50px] bg-[color:var(--jet)] fixed bottom-0 rounded-tr-3xl rounded-tl-3xl">
       <button onClick={handleHome}><HomeIcon/></button>
       <Link href="/anime/seasonal"><a><SeasonaIcon/></a></Link>
       <h1><MyListIcon/></h1>

@@ -5,6 +5,7 @@ import useFunctionsClient from "../hooks/useFunctionsClient";
 import { useStateContext } from "../context/StateContext";
 import { useEffect } from "react";
 import SearchIcon from "../images/SearchIcon";
+import Logo from "../images/Logo";
 
 export default function Navbar({
   searchOn = true,
@@ -31,9 +32,9 @@ export default function Navbar({
   }, [query])
   //
   return (
-    <nav className="bg-[color:var(--black)] w-full pb-3 full-flex flex-col h-[60px] bg-[color:var(--jet)] rounded-br-3xl rounded-bl-3xl">
+    <nav className="w-full pb-3 full-flex flex-col h-[var(--nav-size)] bg-[color:var(--jet)] rounded-br-3xl rounded-bl-3xl fixed z-10 top-0">
       <Link href="/">
-        <h1 className="text-skin-flick">AnimeVoid</h1>
+        <h1 className="text-skin-flick mt-2 mb-2"><Logo/></h1>
       </Link>
       {searchOn ? (
         <form className="full-flex relative w-2/3" onSubmit={(e) => handleSubmit(e)}>
