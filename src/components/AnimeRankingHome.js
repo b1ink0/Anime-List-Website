@@ -82,7 +82,7 @@ function Ranking() {
                                     />
                                     <h1 className="w-full h-7 pb-1 pl-1 pr-1 absolute bottom-0 bg-[color:var(--black)] truncate border-t-2 border-[color:var(--red-border)]">{handleTextCrop(d.node.title, 15)}</h1>
                                 </div>
-                            )) : <Skeleton />}
+                            )) : <Skeleton count={10} w={28} h={48} s={"ml-3"} />}
                         {topAiringList.length && (
                             <div
                                 onClick={() => handleLink("ranking/airing")}
@@ -114,7 +114,7 @@ function Ranking() {
                                     />
                                     <h1 className="w-full h-7 pb-1 pl-1 pr-1 absolute bottom-0 bg-[color:var(--black)] truncate border-t-2 border-[color:var(--red-border)]">{handleTextCrop(d.node.title, 15)}</h1>
                                 </div>
-                            )) : <Skeleton />}
+                            )) : <Skeleton count={10} w={28} h={48} s={"ml-3"} />}
                         {allTimeTopList.length && (
                             <div
                                 onClick={() => handleLink("ranking/all")}
@@ -146,7 +146,7 @@ function Ranking() {
                                     />
                                     <h1 className="w-full h-7 pb-1 pl-1 pr-1 absolute bottom-0 bg-[color:var(--black)] truncate border-t-2 border-[color:var(--red-border)]">{handleTextCrop(d.node.title, 15)}</h1>
                                 </div>
-                            )) : <Skeleton />}
+                            )) : <Skeleton count={10} w={28} h={48} s={"ml-3"} />}
                         {topMoviesList.length && (
                             <div
                                 onClick={() => handleLink("ranking/movie")}
@@ -178,7 +178,7 @@ function Ranking() {
                                     />
                                     <h1 className="w-full h-7 pb-1 pl-1 pr-1 absolute bottom-0 bg-[color:var(--black)] truncate border-t-2 border-[color:var(--red-border)]">{handleTextCrop(d.node.title, 15)}</h1>
                                 </div>
-                            )) : <Skeleton />}
+                            )) : <Skeleton  count={10} w={28} h={48} s={"ml-3"}/>}
                         {topAiringList.length && (
                             <div
                                 onClick={() => handleLink("ranking/upcoming")}

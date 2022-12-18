@@ -6,6 +6,7 @@ import "../styles/Ratings.scss";
 import "../styles/Scroll.scss"
 import "../styles/Skeleton.scss"
 import "../styles/Ranking.scss"
+import "../styles/Search.scss"
 import 'react-loading-skeleton/dist/skeleton.css'
 
 let prevRoute;

@@ -17,6 +17,9 @@ export default function Search({ prevRoute }) {
         }
     }, [router.isReady, router])
     //
+    useEffect(()=>{
+    },[])
+    //
     return (
         <>
             <Navbar query={currentQuery} prevRoute={prevRoute} />

@@ -1,3 +1,6 @@
+import axios from "axios";
+import fetch from "cross-fetch"
+
 const MAL = require("myanimelist-api-wrapper");
 
 export default function useFunctionsServer() {
@@ -70,5 +73,24 @@ export default function useFunctionsServer() {
     return data;
   };
   //
-  return { handleSearchAnimeByName, handleAnimeDetails, handleAnimeSeasonal, handleAnimeRanking };
+  const handleGetMALUserAnimeList = async (query) => {
+    let data = {}
+    await axios("https://api.myanimelist.net/v2/anime?q=one", {
+      headers: {
+        "X-MAL-CLIENT-ID": process.env.NEXT_PUBLIC_CLIENT_ID
+      }
+    }).then(d => console.log(d)).catch(e => console.log(e))
+  //   await anime({
+  //     client_id: process.env.NEXT_PUBLIC_CLIENT_ID,
+  //     user_name: query.user_name ? query.user_name : undefined,
+  //     limit: query.limit ? query.limit : undefined,
+  //     offset: query.offset ? query.offset : undefined,
+  //     status: query.status ? query.status : undefined,
+  //   })
+  //     .anime_mal_user_list()()
+  //     .then((d) => (data = d))
+  //     .catch((err) => { console.log(err) });
+  }
+  
+  return { handleSearchAnimeByName, handleAnimeDetails, handleAnimeSeasonal, handleAnimeRanking, handleGetMALUserAnimeList };
 }
