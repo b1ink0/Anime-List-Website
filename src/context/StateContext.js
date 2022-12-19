@@ -19,6 +19,7 @@ export const StateProvider = ({ children }) => {
   const [atHome, setAtHome] = useState(true)
   const [currentQuery, setCurrentQuery] = useState("");
   const [scroll, setScroll] = useState(0);
+  const [card, setCard] = useState(true)
   const values = {
     rootRef,
     currentSearchResult,
@@ -41,6 +42,8 @@ export const StateProvider = ({ children }) => {
     setCurrentQuery,
     scroll,
     setScroll,
+    card,
+    setCard
   };
   return (
     <StateContext.Provider value={values}>{children}</StateContext.Provider>

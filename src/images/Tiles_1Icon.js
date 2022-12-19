@@ -1,10 +1,11 @@
 import React from "react";
 
-export default function Tiles_1Icon() {
+export default function Tiles_1Icon({w = 25, h = 25}) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      className="w-7 h-7 fill-[color:var(--white)]"
+      className={`fill-[color:var(--white)]`}
+      style={{width: w+"px", height: h+"px"}}
       enableBackground="new 0 0 512 512"
       viewBox="0 0 24 24"
     >

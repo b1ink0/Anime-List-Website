@@ -6,22 +6,8 @@ import { useStateContext } from "../src/context/StateContext";
 
 export default function Home() {
   const {
-    currentSearchResult,
-    setCurrentSearchResult,
-    topAiringList,
-    setTopAiringList,
-    allTimeTopList,
-    setAllTimeTopList,
-    topMoviesList,
-    setTopMoviesList,
-    topUpcomingList,
-    setTopUpcomingList,
-    atHome,
-    setAtHome,
-    currentQuery,
-    setCurrentQuery,
-    scroll,
-    setScroll,
+    card,
+    setCard
   } = useStateContext();
 
   return (
@@ -31,7 +17,7 @@ export default function Home() {
         <meta name="description" content="Keep Track Of Animes Using AnimeVoid!" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Navbar />
+      <Navbar card={card} setCard={setCard}/>
       <Ranking />
       <Footer />
     </>

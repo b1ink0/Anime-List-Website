@@ -1,10 +1,16 @@
 import { useRouter } from 'next/router';
 import React, { useEffect, useRef, useState } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component';
+import { useStateContext } from '../context/StateContext';
 import useFunctionsClient from '../hooks/useFunctionsClient'
+import NextPrevIcon from '../images/NextPrevIcon';
+import Cards from '../sub-components/Cards';
+import Skeleton from '../sub-components/Skeleton';
 
 export default function AnimeSeasonal() {
+    //
     const { handleAnimeSeasonal, handleCurrentSeason, handleCurrentYear, handleSeasonExist } = useFunctionsClient();
+    const { card } = useStateContext()
     const [seasonalList, setSeasonalList] = useState([])
     const [currentYear, setCurrentYear] = useState(handleCurrentYear())
     const [currentSeason, setCurrentSeason] = useState(handleCurrentSeason())
@@ -64,14 +70,14 @@ export default function AnimeSeasonal() {
             currentYear,
             currentSeason,
             "anime_num_list_users",
-            5,
+            6,
             offset,
-            "id,title,main_picture,mean"
+            // "id,title,main_picture,mean,genres,start_season,status,synopsis,rank"
         )
             .then((d) => {
                 let tempList = seasonalList.concat(d.data)
                 setSeasonalList(() => tempList)
-                setOffset((offset) => offset + 5);
+                setOffset((offset) => offset + 6);
             })
             .catch((err) => {
                 console.log(err);
@@ -82,79 +88,59 @@ export default function AnimeSeasonal() {
         setOffset(0)
     }
     //
-    const handleLink = (id) => {
-        // setScroll(scrollDivRef.current.scrollTop);
-        router.push(`/anime/${id}`);
-    };
-    //
     useEffect(() => {
         setFlag(true)
         handleScroll();
     }, [])
     //
     useEffect(() => {
-        if (flag){
+        if (flag) {
             setSeasonalList(() => [])
         }
     }, [currentYear, currentSeason])
     //
     useEffect(() => {
-        if (flag && !seasonalList.length)
-        {
+        if (flag && !seasonalList.length) {
             handleReset()
         }
+        console.log(seasonalList)
     }, [seasonalList])
     //
     useEffect(() => {
-        if (flag && offset == 0){
+        if (flag && offset == 0) {
             handleScroll()
         }
     }, [offset])
     //
     return (
         <section className="relative w-full full-flex">
-            <div className="flex flex-col w-full">
-                <div className="flex w-full h-8 justify-evenly items-center">
-                    <button className='border-2 pr-1 pl-1' onClick={() => handleYearSeasonChange("next")}>Next</button>
-                    <h1>{currentYear}</h1>
-                    <button className='border-2 pr-1 pl-1' onClick={() => handleYearSeasonChange("prev")}>Prev</button>
-                </div>
-                <div className='flex w-full h-8 justify-evenly items-center'>
-                    <button className={`border-2 pr-1 pl-1 ${currentSeason === "winter" ? "bg-red-400" : ""}`} onClick={() => handleYearSeasonChange("winter")}>Winter</button>
-                    <button className={`border-2 pr-1 pl-1 ${currentSeason === "spring" ? "bg-red-400" : ""}`} onClick={() => handleYearSeasonChange("spring")}>Spring</button>
-                    <button className={`border-2 pr-1 pl-1 ${currentSeason === "summer" ? "bg-red-400" : ""}`} onClick={() => handleYearSeasonChange("summer")}>Summer</button>
-                    <button className={`border-2 pr-1 pl-1 ${currentSeason === "fall" ? "bg-red-400" : ""}`} onClick={() => handleYearSeasonChange("fall")}>Fall</button>
-                </div>
-            </div>
             <div
                 id="scrollableDiv"
                 ref={scrollDivRef}
-                className="fixed w-full top-[124px] h-[calc(100%_-_184px)]"
+                className="fixed w-full top-[var(--nav-size)] h-[calc(100%_-_124px)]"
                 style={{ overflow: "auto" }}
             >
+                <div className="flex flex-col w-full">
+                    <div className="flex w-full h-8 justify-evenly items-center mt-3">
+                        <button className='bg-[color:var(--jet)] rounded-lg pt-1 pb-1 pr-3 pl-3' onClick={() => handleYearSeasonChange("next")}><NextPrevIcon right={false} /></button>
+                        <h1 className="bg-[color:var(--jet)] rounded-lg pt-1 pb-1 pr-3 pl-3">{currentYear}</h1>
+                        <button className='bg-[color:var(--jet)] rounded-lg pt-1 pb-1 pr-3 pl-3' onClick={() => handleYearSeasonChange("prev")}><NextPrevIcon /></button>
+                    </div>
+                    <div className='flex w-full h-8 justify-evenly items-center mt-2'>
+                        <button className={`rounded-lg pt-1 pb-1 pr-3 pl-3 transition-colors ${currentSeason === "winter" ? "bg-[color:var(--red-border)]" : "bg-[color:var(--jet)]"}`} onClick={() => handleYearSeasonChange("winter")}>Winter</button>
+                        <button className={`rounded-lg pt-1 pb-1 pr-3 pl-3 transition-colors ${currentSeason === "spring" ? "bg-[color:var(--red-border)]" : "bg-[color:var(--jet)]"}`} onClick={() => handleYearSeasonChange("spring")}>Spring</button>
+                        <button className={`rounded-lg pt-1 pb-1 pr-3 pl-3 transition-colors ${currentSeason === "summer" ? "bg-[color:var(--red-border)]" : "bg-[color:var(--jet)]"}`} onClick={() => handleYearSeasonChange("summer")}>Summer</button>
+                        <button className={`rounded-lg pt-1 pb-1 pr-3 pl-3 transition-colors ${currentSeason === "fall" ? "bg-[color:var(--red-border)]" : "bg-[color:var(--jet)]"}`} onClick={() => handleYearSeasonChange("fall")}>Fall</button>
+                    </div>
+                </div>
                 <InfiniteScroll
                     dataLength={seasonalList.length}
                     next={handleScroll}
                     hasMore={true}
-                    loader={<h4>Loading...</h4>}
+                    loader={card ? <Skeleton count={6} w={36} h={52} s={"mt-4"} /> : <Skeleton count={6} w={"full"} h={36} s={"mt-4"} />}
                     scrollableTarget="scrollableDiv"
                 >
-                    {seasonalList.length &&
-                        seasonalList.map((d) => (
-                            <div
-                                onClick={() => handleLink(d.node.id)}
-                                key={Math.random()}
-                                className="w-full full-flex flex-col"
-                            >
-                                <img
-                                    width="200px"
-                                    height="200px"
-                                    src={d.node.main_picture.medium}
-                                    alt={d.node.title}
-                                />
-                                <h1>{d.node.title}</h1>
-                            </div>
-                        ))}
+                    <Cards list={seasonalList} card={card}/>
                 </InfiniteScroll>
             </div>
         </section>

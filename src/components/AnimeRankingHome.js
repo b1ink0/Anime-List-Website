@@ -61,9 +61,6 @@ function Ranking() {
     //
     return (
         <section className="bg-[color:var(--black)] relative w-full full-flex flex-col mb-[60px] mt-[var(--nav-size)]">
-            {/* <div className='w-52 h-52 clip-path'>
-
-            </div> */}
             <div className="full-flex flex-col">
                 <h4 className="mt-3 mb-3 rounded-full border-2 w-40 border-[color:var(--red-border)]" onClick={() => handleLink("ranking/airing")}>Top Airing</h4>
                 <div className='flex w-screen overflow-x-auto scrollable_div pb-3'>

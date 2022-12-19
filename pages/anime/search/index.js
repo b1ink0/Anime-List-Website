@@ -17,15 +17,12 @@ export default function Search({ prevRoute }) {
         }
     }, [router.isReady, router])
     //
-    useEffect(()=>{
-    },[])
-    //
     return (
         <>
-            <Navbar query={currentQuery} prevRoute={prevRoute} />
+            <Navbar tiles={true} query={currentQuery} prevRoute={prevRoute} />
             {
-                currentQuery.length &&
-                <AnimeSearchResult currentQuery={currentQuery} />
+                currentQuery.length !== 0 ? 
+                <AnimeSearchResult currentQuery={currentQuery} /> : ""
             }
             <Footer />
         </>

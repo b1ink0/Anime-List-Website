@@ -4,6 +4,7 @@ import Navbar from "../../../src/sub-components/Navbar";
 import NotFound from "../../../src/sub-components/NotFound";
 import RankingMain from "../../../src/components/AnimeRankingMain";
 import { useStateContext } from "../../../src/context/StateContext";
+import { useState } from "react";
 
 export default function Ranking({ prevRoute }) {
   const {
@@ -17,7 +18,7 @@ export default function Ranking({ prevRoute }) {
   if (!["upcoming", "movie", "all", "airing"].includes(router.query.id))
     return (
       <>
-        <Navbar prevRoute={prevRoute} />
+        <Navbar searchOn={true} prevRoute={prevRoute} />
         <NotFound />
         <Footer />
       </>
@@ -25,14 +26,8 @@ export default function Ranking({ prevRoute }) {
   //
   return (
     <>
-      <Navbar prevRoute={prevRoute} />
-      <RankingMain
-        rankingList={rankingList}
-        setRankingList={setRankingList}
-        rankingListScroll={rankingListScroll}
-        setRankingListScroll={setRankingListScroll}
-        currentQuery={router.query.id}
-      />
+      <Navbar tiles={true} prevRoute={prevRoute} />
+      <RankingMain currentQuery={router.query.id}/>
       <Footer />
     </>
   );

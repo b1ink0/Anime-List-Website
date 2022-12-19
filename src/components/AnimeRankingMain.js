@@ -2,30 +2,34 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { useStateContext } from "../context/StateContext";
 import useFunctionsClient from "../hooks/useFunctionsClient";
+import Cards from "../sub-components/Cards";
+import Skeleton from "../sub-components/Skeleton";
 
 export default function RankingMain({
     currentQuery
 }) {
     const { handleAnimeRanking } = useFunctionsClient();
+    const { card } = useStateContext()
     const [offset, setOffset] = useState(0);
     const [rankingList, setRankingList] = useState([])
+    const [flag, setFlag] = useState(false)
     const router = useRouter();
     const scrollDivRef = useRef(null);
     //
     const handleScroll = () => {
         handleAnimeRanking(
             currentQuery,
-            5,
+            6,
             offset,
-            "id,title,main_picture,mean"
         )
             .then((d) => {
                 console.log(d, offset)
                 let tempList = rankingList.concat(d.data)
                 console.log(rankingList);
-                setRankingList(()=> tempList)
-                setOffset((offset) => offset + 5);
+                setRankingList(() => tempList)
+                setOffset((offset) => offset + 6);
             })
             .catch((err) => {
                 console.log(err);
@@ -36,46 +40,57 @@ export default function RankingMain({
         // setScroll(scrollDivRef.current.scrollTop);
         router.push(`/anime/${id}`);
     };
+      //
+      const handleReset = () => {
+        setOffset(0)
+    }
     //
     useEffect(() => {
-        console.log(rankingList);
+        setFlag(true)
         handleScroll();
-        // if (scroll > 0) {
-        //     scrollDivRef.current.scrollTop = scroll;
-        // }
-    }, []);
+    }, [])
+    //
+    useEffect(() => {
+        if (flag) {
+            setRankingList(() => [])
+        }
+    }, [currentQuery])
+    //
+    useEffect(() => {
+        if (flag && !rankingList.length) {
+            handleReset()
+        }
+        console.log(rankingList)
+    }, [rankingList])
+    //
+    useEffect(() => {
+        if (flag && offset == 0) {
+            handleScroll()
+        }
+    }, [offset])
     //
     return (
         <section className="relative w-full full-flex">
             <div
                 id="scrollableDiv"
                 ref={scrollDivRef}
-                className="fixed w-full top-[var(--nav-size)] h-[calc(100%_-_120px)]"
+                className="flex flex-col items-center fixed w-full top-[var(--nav-size)] h-[calc(100%_-_120px)]"
                 style={{ overflow: "auto" }}
             >
+                <div className="w-full flex justify-evenly items-center">
+                    <h1 onClick={()=> handleLink("ranking/airing")} className={`capitalize w-fit rounded-lg pt-1 pb-1 pr-3 pl-3 mt-3 ${currentQuery === "airing" ? "bg-[color:var(--red-border)]" : "bg-[color:var(--jet)]"}`}>Airing</h1>
+                    <h1 onClick={()=> handleLink("ranking/all")} className={`capitalize w-fit rounded-lg pt-1 pb-1 pr-3 pl-3 mt-3 ${currentQuery === "all" ? "bg-[color:var(--red-border)]" : "bg-[color:var(--jet)]"}`}>All</h1>
+                    <h1 onClick={()=> handleLink("ranking/movie")} className={`capitalize w-fit rounded-lg pt-1 pb-1 pr-3 pl-3 mt-3 ${currentQuery === "movie" ? "bg-[color:var(--red-border)]" : "bg-[color:var(--jet)]"}`}>Movies</h1>
+                    <h1 onClick={()=> handleLink("ranking/upcoming")} className={`capitalize w-fit rounded-lg pt-1 pb-1 pr-3 pl-3 mt-3 ${currentQuery === "upcoming" ? "bg-[color:var(--red-border)]" : "bg-[color:var(--jet)]"}`}>Upcoming</h1>
+                </div>
                 <InfiniteScroll
                     dataLength={rankingList.length}
                     next={handleScroll}
                     hasMore={true}
-                    loader={<h4>Loading...</h4>}
+                    loader={card ? <Skeleton count={6} w={36} h={52} s={"mt-4"} /> : <Skeleton count={6} w={"full"} h={36} s={"mt-4"} />}
                     scrollableTarget="scrollableDiv"
                 >
-                    {rankingList.length &&
-                        rankingList.map((d) => (
-                            <div
-                                onClick={() => handleLink(d.node.id)}
-                                key={Math.random()}
-                                className="w-full full-flex flex-col"
-                            >
-                                <img
-                                    width="200px"
-                                    height="200px"
-                                    src={d.node.main_picture.medium}
-                                    alt={d.node.title}
-                                />
-                                <h1>{d.node.title}</h1>
-                            </div>
-                        ))}
+                    <Cards list={rankingList} card={card} rate={false}/>
                 </InfiniteScroll>
             </div>
         </section>

@@ -73,6 +73,7 @@ export default function useFunctionsClient() {
       offset: offset,
       fields: fields,
     };
+    console.log(config)
     await axios.get("/api/anime_seasonal", { params: config }).then((d) => {
       if (d.data.error) {
         data = { error: d.data.error };
