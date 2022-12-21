@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import React from 'react'
+import React, { useEffect } from 'react'
 import useFunctionsClient from '../hooks/useFunctionsClient';
 
 export default function Cards({list, card, rate = true}) {
@@ -16,7 +16,7 @@ export default function Cards({list, card, rate = true}) {
                     <div
                         onClick={() => handleLink(d.node.id)}
                         key={Math.random()}
-                        className={`  ${card ? "w-36 h-52 flex-col full-flex" : "w-full flex justify-start align-top h-36"} mt-4 overflow-hidden relative rounded-lg border-[2px] border-[color:var(--red-border)]`}
+                        className={`${card ? "w-36 h-52 flex-col full-flex" : "w-full flex justify-start align-top h-36"} mt-4 overflow-hidden relative rounded-lg border-[2px] border-[color:var(--red-border)]`}
                     >
                         <img
                             className={`${card ? "w-36 flex-col absolute top-0 translate-y-[0px] scale-[1.15]" : "w-24 border-r-2 border-r-[color:var(--red-border)]"}   transition-opacity  select-none drag-none`}

@@ -14,15 +14,32 @@ export default function useFunctionsClient() {
       offset: offset,
       fields: fields,
     };
-    await axios.get("/api/anime_search", { params: config }).then((d) => {
+    let config1 = {
+      user_name: animeName,
+      limit: 5,
+      offset: 0,
+    } 
+    await axios.get("/api/anime_search", { params: config }).then( async (d) => {
       console.log(d.data);
-      if (Object.keys(d.data).length === 0) {
-        data = { error: "Empty Object!" };
-      } else if (d.data.error) {
-        data = { error: d.data.error };
-      } else {
-        data = d.data.data;
-      }
+      await axios.get("/api/anime_userlist", {params: config1}).then((d1) => {
+        console.log(d1)
+        if (Object.keys(d1.data).length === 0){
+          data = {...data, userlist : []}
+        } else if (d1.data.error) {
+          data = {...data, userlist : []}
+        } else {
+          data = {...data, userlist : d1.data.data}
+        }
+        if (Object.keys(d.data).length === 0) {
+          data = {...data, error: "Empty Object!" };
+        } else if (d.data.error) {
+          data = {...data, error: d.data.error };
+        } else {
+          data = {...data, list: d.data.data};
+        }
+      }).catch((err) => {
+          console.log(err)
+      })
     });
     return data;
   };

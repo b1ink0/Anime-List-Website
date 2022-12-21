@@ -1,6 +1,7 @@
 .ranking_card {
     opacity: 0;
     animation: rc 1.5s ease 0s forwards;
+
     @keyframes rc {
         100% {
             opacity: 1;

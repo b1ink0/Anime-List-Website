@@ -11,6 +11,7 @@ export default function AnimeSearchResult({ currentQuery }) {
   const { handleSearchAnimeByName } = useFunctionsClient();
   const { card } = useStateContext()
   const [currentSearchResult, setCurrentSearchResult] = useState([])
+  const [userlist, setUserList] = useState([])
   const [offset, setOffset] = useState(0);
   const [flag, setFlag] = useState(false)
   const router = useRouter();
@@ -25,7 +26,7 @@ export default function AnimeSearchResult({ currentQuery }) {
       "id,title,main_picture,mean,genres,start_season,status,synopsis,rank"
     )
       .then((d) => {
-        let tempResult = currentSearchResult.concat(d)
+        let tempResult = currentSearchResult.concat(d.list)
         tempResult = tempResult.filter((value, index) => {
           const _value = JSON.stringify(value);
           return index === tempResult.findIndex(obj => {
@@ -33,6 +34,7 @@ export default function AnimeSearchResult({ currentQuery }) {
           });
         });
         setCurrentSearchResult(() => tempResult);
+        setUserList(() => d.userlist)
         setOffset((offset) => offset + 10);
       })
       .catch((err) => {
@@ -65,6 +67,8 @@ export default function AnimeSearchResult({ currentQuery }) {
     if (flag && currentSearchResult.length === 0) {
       setOffset(() => 0)
     }
+    console.log(currentQuery)
+
   }, [currentSearchResult])
   //
   useEffect(() => {
@@ -74,6 +78,10 @@ export default function AnimeSearchResult({ currentQuery }) {
     }
   }, [offset])
   //
+  const handleS = (e) => {
+    console.log(e)
+  }
+  //
   return (
     <section className="relative w-full h-full full-flex">
       <div
@@ -81,7 +89,13 @@ export default function AnimeSearchResult({ currentQuery }) {
         ref={scrollDivRef}
         className="fixed w-full top-[var(--nav-size)] h-[calc(100%_-_120px)]"
         style={{ overflow: "auto" }}
+        // onScroll={(e) => handleScroll(e)}
       >
+        {userlist.length === 0 ? "" : 
+            <div className="w-full full-flex">
+              <h1 onClick={() => handleLink(`user/${currentQuery}`)} className=" w-fit rounded-lg border-[2px] border-[color:var(--red-border)] pr-2 pl-2 mt-3">Looking for user  &quot;{currentQuery}&quot; ?</h1>
+            </div>
+          }
         <InfiniteScroll
           dataLength={currentSearchResult.length}
           next={handleScroll}

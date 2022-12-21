@@ -120,7 +120,7 @@ export default function AnimeSeasonal() {
                 className="fixed w-full top-[var(--nav-size)] h-[calc(100%_-_124px)]"
                 style={{ overflow: "auto" }}
             >
-                <div className="flex flex-col w-full">
+                <div className="flex flex-col w-full ranking_card">
                     <div className="flex w-full h-8 justify-evenly items-center mt-3">
                         <button className='bg-[color:var(--jet)] rounded-lg pt-1 pb-1 pr-3 pl-3' onClick={() => handleYearSeasonChange("next")}><NextPrevIcon right={false} /></button>
                         <h1 className="bg-[color:var(--jet)] rounded-lg pt-1 pb-1 pr-3 pl-3">{currentYear}</h1>
