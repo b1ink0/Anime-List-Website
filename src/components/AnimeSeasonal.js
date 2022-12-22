@@ -15,6 +15,7 @@ export default function AnimeSeasonal() {
     const [currentYear, setCurrentYear] = useState(handleCurrentYear())
     const [currentSeason, setCurrentSeason] = useState(handleCurrentSeason())
     const [offset, setOffset] = useState(0);
+    const [count, setCount] = useState(0)
     const [flag, setFlag] = useState(false)
     const scrollDivRef = useRef(null);
     const router = useRouter();
@@ -76,6 +77,7 @@ export default function AnimeSeasonal() {
         )
             .then((d) => {
                 let tempList = seasonalList.concat(d.data)
+                setCount(seasonalList.length)
                 setSeasonalList(() => tempList)
                 setOffset((offset) => offset + 6);
             })
@@ -140,7 +142,7 @@ export default function AnimeSeasonal() {
                     loader={card ? <Skeleton count={6} w={36} h={52} s={"mt-4"} /> : <Skeleton count={6} w={"full"} h={36} s={"mt-4"} />}
                     scrollableTarget="scrollableDiv"
                 >
-                    <Cards list={seasonalList} card={card}/>
+                    <Cards list={seasonalList} card={card} count={count}/>
                 </InfiniteScroll>
             </div>
         </section>

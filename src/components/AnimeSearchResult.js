@@ -13,6 +13,7 @@ export default function AnimeSearchResult({ currentQuery }) {
   const [currentSearchResult, setCurrentSearchResult] = useState([])
   const [userlist, setUserList] = useState([])
   const [offset, setOffset] = useState(0);
+  const [count, setCount] = useState(0)
   const [flag, setFlag] = useState(false)
   const router = useRouter();
   const scrollDivRef = useRef(null);
@@ -27,13 +28,14 @@ export default function AnimeSearchResult({ currentQuery }) {
     )
       .then((d) => {
         let tempResult = currentSearchResult.concat(d.list)
-        tempResult = tempResult.filter((value, index) => {
+        let tempResult_1 = tempResult.filter((value, index) => {
           const _value = JSON.stringify(value);
           return index === tempResult.findIndex(obj => {
             return JSON.stringify(obj) === _value;
           });
         });
-        setCurrentSearchResult(() => tempResult);
+        setCount(currentSearchResult.length)
+        setCurrentSearchResult(() => tempResult_1);
         setUserList(() => d.userlist)
         setOffset((offset) => offset + 10);
       })
@@ -89,13 +91,12 @@ export default function AnimeSearchResult({ currentQuery }) {
         ref={scrollDivRef}
         className="fixed w-full top-[var(--nav-size)] h-[calc(100%_-_120px)]"
         style={{ overflow: "auto" }}
-        // onScroll={(e) => handleScroll(e)}
       >
-        {userlist.length === 0 ? "" : 
-            <div className="w-full full-flex">
-              <h1 onClick={() => handleLink(`user/${currentQuery}`)} className=" w-fit rounded-lg border-[2px] border-[color:var(--red-border)] pr-2 pl-2 mt-3">Looking for user  &quot;{currentQuery}&quot; ?</h1>
-            </div>
-          }
+        {userlist.length === 0 ? "" :
+          <div className="w-full full-flex">
+            <h1 onClick={() => handleLink(`user/${currentQuery}`)} className=" w-fit rounded-lg border-[2px] border-[color:var(--red-border)] pr-2 pl-2 mt-3">Looking for user  &quot;{currentQuery}&quot; ?</h1>
+          </div>
+        }
         <InfiniteScroll
           dataLength={currentSearchResult.length}
           next={handleScroll}
@@ -103,7 +104,7 @@ export default function AnimeSearchResult({ currentQuery }) {
           loader={card ? <Skeleton count={6} w={36} h={52} s={"mt-4"} /> : <Skeleton count={6} w={"full"} h={36} s={"mt-4"} />}
           scrollableTarget="scrollableDiv"
         >
-          <Cards list={currentSearchResult} card={card} />
+          <Cards list={currentSearchResult} card={card} count={count} />
         </InfiniteScroll>
       </div>
     </section>

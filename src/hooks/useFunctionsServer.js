@@ -45,7 +45,7 @@ export default function useFunctionsServer() {
       client_id: process.env.NEXT_PUBLIC_CLIENT_ID,
       ranking_type: query.ranking_type,
       limit: query.limit ? query.limit : undefined,
-      offset: query.offset ? `=${query.offset}` : undefined,
+      offset: query.offset ? query.offset : undefined,
       fields: query.fields ? query.offset : undefined,
     })
       .anime_ranking()()
@@ -77,7 +77,7 @@ export default function useFunctionsServer() {
     let data = {}
     await anime({
       client_id: process.env.NEXT_PUBLIC_CLIENT_ID,
-      user_name: query.user_name ? query.user_name : undefined,
+      user_name: query.username ? query.username : undefined,
       limit: query.limit ? query.limit : undefined,
       offset: query.offset ? query.offset : undefined,
       status: query.status ? query.status : undefined,

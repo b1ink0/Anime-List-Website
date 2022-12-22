@@ -13,6 +13,7 @@ export default function RankingMain({
     const { handleAnimeRanking } = useFunctionsClient();
     const { card } = useStateContext()
     const [offset, setOffset] = useState(0);
+    const [count, setCount] = useState(0)
     const [rankingList, setRankingList] = useState([])
     const [flag, setFlag] = useState(false)
     const router = useRouter();
@@ -28,6 +29,7 @@ export default function RankingMain({
                 console.log(d, offset)
                 let tempList = rankingList.concat(d.data)
                 console.log(rankingList);
+                setCount(rankingList.length)
                 setRankingList(() => tempList)
                 setOffset((offset) => offset + 6);
             })
@@ -40,8 +42,8 @@ export default function RankingMain({
         // setScroll(scrollDivRef.current.scrollTop);
         router.push(`/anime/${id}`);
     };
-      //
-      const handleReset = () => {
+    //
+    const handleReset = () => {
         setOffset(0)
     }
     //
@@ -78,10 +80,10 @@ export default function RankingMain({
                 style={{ overflow: "auto" }}
             >
                 <div className="w-full flex justify-evenly items-center">
-                    <h1 onClick={()=> handleLink("ranking/airing")} className={`capitalize w-fit rounded-lg pt-1 pb-1 pr-3 pl-3 mt-3 ${currentQuery === "airing" ? "bg-[color:var(--red-border)]" : "bg-[color:var(--jet)]"}`}>Airing</h1>
-                    <h1 onClick={()=> handleLink("ranking/all")} className={`capitalize w-fit rounded-lg pt-1 pb-1 pr-3 pl-3 mt-3 ${currentQuery === "all" ? "bg-[color:var(--red-border)]" : "bg-[color:var(--jet)]"}`}>All</h1>
-                    <h1 onClick={()=> handleLink("ranking/movie")} className={`capitalize w-fit rounded-lg pt-1 pb-1 pr-3 pl-3 mt-3 ${currentQuery === "movie" ? "bg-[color:var(--red-border)]" : "bg-[color:var(--jet)]"}`}>Movies</h1>
-                    <h1 onClick={()=> handleLink("ranking/upcoming")} className={`capitalize w-fit rounded-lg pt-1 pb-1 pr-3 pl-3 mt-3 ${currentQuery === "upcoming" ? "bg-[color:var(--red-border)]" : "bg-[color:var(--jet)]"}`}>Upcoming</h1>
+                    <h1 onClick={() => handleLink("ranking/airing")} className={`capitalize w-fit rounded-lg pt-1 pb-1 pr-3 pl-3 mt-3 ${currentQuery === "airing" ? "bg-[color:var(--red-border)]" : "bg-[color:var(--jet)]"}`}>Airing</h1>
+                    <h1 onClick={() => handleLink("ranking/all")} className={`capitalize w-fit rounded-lg pt-1 pb-1 pr-3 pl-3 mt-3 ${currentQuery === "all" ? "bg-[color:var(--red-border)]" : "bg-[color:var(--jet)]"}`}>All</h1>
+                    <h1 onClick={() => handleLink("ranking/movie")} className={`capitalize w-fit rounded-lg pt-1 pb-1 pr-3 pl-3 mt-3 ${currentQuery === "movie" ? "bg-[color:var(--red-border)]" : "bg-[color:var(--jet)]"}`}>Movies</h1>
+                    <h1 onClick={() => handleLink("ranking/upcoming")} className={`capitalize w-fit rounded-lg pt-1 pb-1 pr-3 pl-3 mt-3 ${currentQuery === "upcoming" ? "bg-[color:var(--red-border)]" : "bg-[color:var(--jet)]"}`}>Upcoming</h1>
                 </div>
                 <InfiniteScroll
                     dataLength={rankingList.length}
@@ -90,7 +92,7 @@ export default function RankingMain({
                     loader={card ? <Skeleton count={6} w={36} h={52} s={"mt-4"} /> : <Skeleton count={6} w={"full"} h={36} s={"mt-4"} />}
                     scrollableTarget="scrollableDiv"
                 >
-                    <Cards list={rankingList} card={card} rate={false}/>
+                    <Cards list={rankingList} card={card} rate={false} count={count}/>
                 </InfiniteScroll>
             </div>
         </section>

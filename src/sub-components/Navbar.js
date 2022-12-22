@@ -3,18 +3,18 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import useFunctionsClient from "../hooks/useFunctionsClient";
 import { useStateContext } from "../context/StateContext";
-import { useEffect } from "react";
+import { memo, useEffect } from "react";
 import SearchIcon from "../images/SearchIcon";
 import Logo from "../images/Logo";
 import Tiles_2Icon from "../images/Tiles_2Icon";
 import Tiles_1Icon from "../images/Tiles_1Icon";
 
-export default function Navbar({
+const Navbar = memo(({
   searchOn = true,
   query = "",
   prevRoute = undefined,
   tiles = false
-}) {
+}) => {
   const { currentQuery, setCurrentQuery, card, setCard } = useStateContext()
   const { handleSearchAnimeByName } = useFunctionsClient();
   const router = useRouter();
@@ -74,4 +74,5 @@ export default function Navbar({
       }
     </nav>
   );
-}
+})
+export default Navbar;

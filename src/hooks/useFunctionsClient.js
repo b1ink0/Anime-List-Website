@@ -15,32 +15,62 @@ export default function useFunctionsClient() {
       fields: fields,
     };
     let config1 = {
-      user_name: animeName,
+      username: animeName,
       limit: 5,
       offset: 0,
-    } 
-    await axios.get("/api/anime_search", { params: config }).then( async (d) => {
+    }
+    await axios.get("/api/anime_search", { params: config }).then(async (d) => {
       console.log(d.data);
-      await axios.get("/api/anime_userlist", {params: config1}).then((d1) => {
+      await axios.get("/api/anime_userlist", { params: config1 }).then((d1) => {
         console.log(d1)
-        if (Object.keys(d1.data).length === 0){
-          data = {...data, userlist : []}
+        if (Object.keys(d1.data).length === 0) {
+          data = { ...data, userlist: [] }
         } else if (d1.data.error) {
-          data = {...data, userlist : []}
+          data = { ...data, userlist: [] }
         } else {
-          data = {...data, userlist : d1.data.data}
+          data = { ...data, userlist: d1.data.data }
         }
         if (Object.keys(d.data).length === 0) {
-          data = {...data, error: "Empty Object!" };
+          data = { ...data, error: "Empty Object!" };
         } else if (d.data.error) {
-          data = {...data, error: d.data.error };
+          data = { ...data, error: d.data.error };
         } else {
-          data = {...data, list: d.data.data};
+          data = { ...data, list: d.data.data };
         }
       }).catch((err) => {
-          console.log(err)
+        console.log(err)
       })
     });
+    return data;
+  };
+  //
+  const handleUserList = async (
+    username,
+    status = undefined,
+    limit = undefined,
+    offset = undefined,
+    sort = undefined,
+  ) => {
+    let data = {};
+    let config = {
+      username: username,
+      status: status,
+      limit: limit,
+      offset: offset,
+      sort: sort
+    }
+    await axios.get("/api/anime_userlist", { params: config }).then((d) => {
+      console.log(d)
+      if (Object.keys(d.data).length === 0) {
+        data = {error: "Empty Object!"}
+      } else if (d.data.error) {
+        data = {error: "Empty Object!"}
+      } else {
+        data = d.data.data
+      }
+    }).catch((err) => {
+      console.log(err)
+    })
     return data;
   };
   //
@@ -79,7 +109,7 @@ export default function useFunctionsClient() {
     return data;
   };
   //
-  const handleAnimeSeasonal = async (year = handleCurrentYear, season = handleCurrentSeason(), sort = "anime_num_list_users",limit = undefined, offset = undefined,
+  const handleAnimeSeasonal = async (year = handleCurrentYear, season = handleCurrentSeason(), sort = "anime_num_list_users", limit = undefined, offset = undefined,
     fields = undefined) => {
     let data = {};
     let config = {
@@ -126,11 +156,11 @@ export default function useFunctionsClient() {
   //
   const handleSeasonExist = (season) => {
     let seasons = ["winter", "spring", "summer", "fall"]
-    seasons = seasons.slice(0, seasons.indexOf(handleCurrentSeason()) + 1) 
+    seasons = seasons.slice(0, seasons.indexOf(handleCurrentSeason()) + 1)
     if (seasons.indexOf(season) >= 0)
       return true
     return false
   }
   //
-  return { handleSearchAnimeByName, handleAnimeDetails, handleAnimeRanking, handleAnimeSeasonal, handleTextCrop, handleCurrentSeason, handleCurrentYear, handleSeasonExist };
+  return { handleSearchAnimeByName, handleUserList, handleAnimeDetails, handleAnimeRanking, handleAnimeSeasonal, handleTextCrop, handleCurrentSeason, handleCurrentYear, handleSeasonExist };
 }
