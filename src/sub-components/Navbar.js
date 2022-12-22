@@ -9,12 +9,12 @@ import Logo from "../images/Logo";
 import Tiles_2Icon from "../images/Tiles_2Icon";
 import Tiles_1Icon from "../images/Tiles_1Icon";
 
-const Navbar = memo(({
+export default function Navbar({
   searchOn = true,
   query = "",
   prevRoute = undefined,
   tiles = false
-}) => {
+}) {
   const { currentQuery, setCurrentQuery, card, setCard } = useStateContext()
   const { handleSearchAnimeByName } = useFunctionsClient();
   const router = useRouter();
@@ -74,5 +74,4 @@ const Navbar = memo(({
       }
     </nav>
   );
-})
-export default Navbar;
+}

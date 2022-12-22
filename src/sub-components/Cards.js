@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import React, { memo, useEffect } from 'react'
 import useFunctionsClient from '../hooks/useFunctionsClient';
 
-const Cards = memo(({ list, card, count = 0, rate = true }) => {
+function Cards({ list, card, count = 0, rate = true }) {
     const { handleTextCrop } = useFunctionsClient()
     const router = useRouter()
     const handleLink = (id) => {
@@ -56,5 +56,5 @@ const Cards = memo(({ list, card, count = 0, rate = true }) => {
                 ))}
         </>
     )
-})
-export default Cards
+}
+export default memo(Cards)
