@@ -84,8 +84,8 @@ export default function useFunctionsServer() {
       sort: query.sort ? query.sort : "anime_start_date"
     })
       .anime_mal_user_list()()
-      .then((d) => (data = d))
-      .catch((err) => { });
+      .then((d) => data = d)
+      .catch((err) => { data = { error: "user_not_found"}});
     return data;
   }
 

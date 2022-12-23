@@ -4,7 +4,7 @@ export default function EmptyIcon() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      className="w-16 h-16 fill-[color:var(--white)]"
+      className="ranking_card w-16 h-16 fill-[color:var(--white)]"
       enableBackground="new 0 0 512 512"
       viewBox="0 0 32 32"
     >

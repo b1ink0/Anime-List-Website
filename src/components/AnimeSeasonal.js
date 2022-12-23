@@ -116,25 +116,25 @@ export default function AnimeSeasonal() {
     //
     return (
         <section className="relative w-full full-flex">
+            <div className="flex flex-col w-full ranking_card mt-[var(--nav-size)]">
+                <div className="flex w-full h-8 justify-evenly items-center mt-3">
+                    <button className='bg-[color:var(--jet)] rounded-lg pt-1 pb-1 pr-3 pl-3' onClick={() => handleYearSeasonChange("next")}><NextPrevIcon right={false} /></button>
+                    <h1 className="bg-[color:var(--jet)] rounded-lg pt-1 pb-1 pr-3 pl-3">{currentYear}</h1>
+                    <button className='bg-[color:var(--jet)] rounded-lg pt-1 pb-1 pr-3 pl-3' onClick={() => handleYearSeasonChange("prev")}><NextPrevIcon /></button>
+                </div>
+                <div className='flex w-full h-8 justify-evenly items-center mt-2'>
+                    <button className={`rounded-lg pt-1 pb-1 pr-3 pl-3 transition-colors ${currentSeason === "winter" ? "bg-[color:var(--red-border)]" : "bg-[color:var(--jet)]"}`} onClick={() => handleYearSeasonChange("winter")}>Winter</button>
+                    <button className={`rounded-lg pt-1 pb-1 pr-3 pl-3 transition-colors ${currentSeason === "spring" ? "bg-[color:var(--red-border)]" : "bg-[color:var(--jet)]"}`} onClick={() => handleYearSeasonChange("spring")}>Spring</button>
+                    <button className={`rounded-lg pt-1 pb-1 pr-3 pl-3 transition-colors ${currentSeason === "summer" ? "bg-[color:var(--red-border)]" : "bg-[color:var(--jet)]"}`} onClick={() => handleYearSeasonChange("summer")}>Summer</button>
+                    <button className={`rounded-lg pt-1 pb-1 pr-3 pl-3 transition-colors ${currentSeason === "fall" ? "bg-[color:var(--red-border)]" : "bg-[color:var(--jet)]"}`} onClick={() => handleYearSeasonChange("fall")}>Fall</button>
+                </div>
+            </div>
             <div
                 id="scrollableDiv"
                 ref={scrollDivRef}
-                className="fixed w-full top-[var(--nav-size)] h-[calc(100%_-_124px)]"
+                className="fixed w-full top-[calc(var(--nav-size)_+_84px)] h-[calc(100%_-_208px)]"
                 style={{ overflow: "auto" }}
             >
-                <div className="flex flex-col w-full ranking_card">
-                    <div className="flex w-full h-8 justify-evenly items-center mt-3">
-                        <button className='bg-[color:var(--jet)] rounded-lg pt-1 pb-1 pr-3 pl-3' onClick={() => handleYearSeasonChange("next")}><NextPrevIcon right={false} /></button>
-                        <h1 className="bg-[color:var(--jet)] rounded-lg pt-1 pb-1 pr-3 pl-3">{currentYear}</h1>
-                        <button className='bg-[color:var(--jet)] rounded-lg pt-1 pb-1 pr-3 pl-3' onClick={() => handleYearSeasonChange("prev")}><NextPrevIcon /></button>
-                    </div>
-                    <div className='flex w-full h-8 justify-evenly items-center mt-2'>
-                        <button className={`rounded-lg pt-1 pb-1 pr-3 pl-3 transition-colors ${currentSeason === "winter" ? "bg-[color:var(--red-border)]" : "bg-[color:var(--jet)]"}`} onClick={() => handleYearSeasonChange("winter")}>Winter</button>
-                        <button className={`rounded-lg pt-1 pb-1 pr-3 pl-3 transition-colors ${currentSeason === "spring" ? "bg-[color:var(--red-border)]" : "bg-[color:var(--jet)]"}`} onClick={() => handleYearSeasonChange("spring")}>Spring</button>
-                        <button className={`rounded-lg pt-1 pb-1 pr-3 pl-3 transition-colors ${currentSeason === "summer" ? "bg-[color:var(--red-border)]" : "bg-[color:var(--jet)]"}`} onClick={() => handleYearSeasonChange("summer")}>Summer</button>
-                        <button className={`rounded-lg pt-1 pb-1 pr-3 pl-3 transition-colors ${currentSeason === "fall" ? "bg-[color:var(--red-border)]" : "bg-[color:var(--jet)]"}`} onClick={() => handleYearSeasonChange("fall")}>Fall</button>
-                    </div>
-                </div>
                 <InfiniteScroll
                     dataLength={seasonalList.length}
                     next={handleScroll}
@@ -142,7 +142,7 @@ export default function AnimeSeasonal() {
                     loader={card ? <Skeleton count={6} w={36} h={52} s={"mt-4"} /> : <Skeleton count={6} w={"full"} h={36} s={"mt-4"} />}
                     scrollableTarget="scrollableDiv"
                 >
-                    <Cards list={seasonalList} card={card} count={count}/>
+                    <Cards list={seasonalList} card={card} count={count} />
                 </InfiniteScroll>
             </div>
         </section>

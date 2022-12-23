@@ -66,7 +66,7 @@ export default function useFunctionsClient() {
       } else if (d.data.error) {
         data = {error: "Empty Object!"}
       } else {
-        data = d.data.data
+        data = d.data
       }
     }).catch((err) => {
       console.log(err)
