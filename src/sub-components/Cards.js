@@ -24,7 +24,7 @@ function Cards({ list, card, count = 0, rate = true }) {
                             src={d.node.main_picture.medium}
                             alt={d.node.title}
                         />
-                        {card &&
+                        {card && rate &&
                             <h1 className="w-12 h-6 bottom-8 bg-[color:var(--black)] rounded-tl-lg absolute right-0">{d.node.mean === undefined ? "N/A" : d.node.mean}</h1>
                         }
                         <div className={`${card ? "w-full bottom-0 absolute h-8" : "w-full flex justify-end items-end flex-col-reverse"} bg-[color:var(--black)]`}>

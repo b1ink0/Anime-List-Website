@@ -1,12 +1,12 @@
 .ratings_container {
-    background-color: red;
+    // background-color: red;
     div {
         svg {
             overflow: visible;
             circle {
                 overflow: visible;
                 fill: none;
-                stroke: cyan;
+                stroke: var(--red-border);
                 stroke-width: 10;
                 stroke-linecap: round;
                 stroke-dasharray: 252;

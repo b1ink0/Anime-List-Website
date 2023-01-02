@@ -61,10 +61,19 @@ export default function AnimeUserList({ username }) {
         })
     }
     //
+    const handleSortChange = (status) => {
+        console.log(isPendingStatus)
+        startTransitionStatus(() => {
+            setList([])
+            setSort(status)
+            setOffset(0)
+        })
+    }
+    //
     const handleSortDisplay = (flag) => {
         if (flag)
             setSortDisplay(true)
-        else 
+        else
             setSortDisplay(false)
     }
     //
@@ -90,21 +99,29 @@ export default function AnimeUserList({ username }) {
             <div className="flex flex-col w-full ranking_card mt-[var(--nav-size)] relative">
                 <div className="flex w-full h-8 justify-evenly items-center mt-3 relative">
                     <h1 className="bg-[color:var(--jet)] rounded-lg pt-1 pb-1 pr-3 pl-3">User: {username}</h1>
-                    <button className="absolute right-6" onClick={() => handleSortDisplay(true)}><FilterIcon /></button>
-                </div>
-                <div className="flex w-full h-12 pb-2 mt-3 overflow-x-auto scrollable_div">
-                    <button className={`rounded-lg pt-1 pb-1 pr-3 pl-3 transition-colors ml-5 whitespace-nowrap ${status === "all" ? "bg-[color:var(--red-border)]" : "bg-[color:var(--jet)]"}`} onClick={() => handleStatusChange("all")}>All</button>
-                    <button className={`rounded-lg pt-1 pb-1 pr-3 pl-3 transition-colors ml-5 whitespace-nowrap ${status === "watching" ? "bg-[color:var(--red-border)]" : "bg-[color:var(--jet)]"}`} onClick={() => handleStatusChange("watching")}>Watching</button>
-                    <button className={`rounded-lg pt-1 pb-1 pr-3 pl-3 transition-colors ml-5 whitespace-nowrap ${status === "completed" ? "bg-[color:var(--red-border)]" : "bg-[color:var(--jet)]"}`} onClick={() => handleStatusChange("completed")}>Completed</button>
-                    <button className={`rounded-lg pt-1 pb-1 pr-3 pl-3 transition-colors ml-5 whitespace-nowrap ${status === "on_hold" ? "bg-[color:var(--red-border)]" : "bg-[color:var(--jet)]"}`} onClick={() => handleStatusChange("on_hold")}>On Hold</button>
-                    <button className={`rounded-lg pt-1 pb-1 pr-3 pl-3 transition-colors ml-5 whitespace-nowrap ${status === "dropped" ? "bg-[color:var(--red-border)]" : "bg-[color:var(--jet)]"}`} onClick={() => handleStatusChange("dropped")}>Dropped</button>
-                    <button className={`rounded-lg pt-1 pb-1 pr-3 pl-3 transition-colors ml-5 mr-5 whitespace-nowrap ${status === "plan_to_watch" ? "bg-[color:var(--red-border)]" : "bg-[color:var(--jet)]"}`} onClick={() => handleStatusChange("plan_to_watch")}>Plan To Watch</button>
+                    <button className="absolute right-6" onClick={() => handleSortDisplay(!sortDisplay)}>
+                        {
+                            sortDisplay ? <CloseIcon /> : <FilterIcon />
+                        }
+                    </button>
                 </div>
                 {
-                    sortDisplay &&
-                    <div className="w-full h-full absolute bg-[color:var(--black)]">
-                        <button className="absolute right-6 top-6" onClick={() => handleSortDisplay(false)}><CloseIcon/></button>
-                    </div>
+                    !sortDisplay ?
+                        <div className="flex w-full h-12 pb-2 mt-3 overflow-x-auto scrollable_div">
+                            <button className={`rounded-lg pt-1 pb-1 pr-3 pl-3 transition-all ml-5 whitespace-nowrap ${status === "all" ? "bg-[color:var(--red-border)]" : "bg-[color:var(--jet)]"}`} onClick={() => handleStatusChange("all")}>All</button>
+                            <button className={`rounded-lg pt-1 pb-1 pr-3 pl-3 transition-all ml-5 whitespace-nowrap ${status === "watching" ? "bg-[color:var(--red-border)]" : "bg-[color:var(--jet)]"}`} onClick={() => handleStatusChange("watching")}>Watching</button>
+                            <button className={`rounded-lg pt-1 pb-1 pr-3 pl-3 transition-all ml-5 whitespace-nowrap ${status === "completed" ? "bg-[color:var(--red-border)]" : "bg-[color:var(--jet)]"}`} onClick={() => handleStatusChange("completed")}>Completed</button>
+                            <button className={`rounded-lg pt-1 pb-1 pr-3 pl-3 transition-all ml-5 whitespace-nowrap ${status === "on_hold" ? "bg-[color:var(--red-border)]" : "bg-[color:var(--jet)]"}`} onClick={() => handleStatusChange("on_hold")}>On Hold</button>
+                            <button className={`rounded-lg pt-1 pb-1 pr-3 pl-3 transition-all ml-5 whitespace-nowrap ${status === "dropped" ? "bg-[color:var(--red-border)]" : "bg-[color:var(--jet)]"}`} onClick={() => handleStatusChange("dropped")}>Dropped</button>
+                            <button className={`rounded-lg pt-1 pb-1 pr-3 pl-3 transition-all ml-5 mr-5 whitespace-nowrap ${status === "plan_to_watch" ? "bg-[color:var(--red-border)]" : "bg-[color:var(--jet)]"}`} onClick={() => handleStatusChange("plan_to_watch")}>Plan To Watch</button>
+                        </div>
+                        :
+                        <div className="flex w-full h-12 pb-2 mt-3 overflow-x-auto scrollable_div">
+                            <button className={`rounded-lg pt-1 pb-1 pr-3 pl-3 transition-all ml-5 whitespace-nowrap ${sort === "anime_start_date" ? "bg-[color:var(--red-border)]" : "bg-[color:var(--jet)]"}`} onClick={() => handleSortChange("anime_start_date")}>Anime Start Time</button>
+                            <button className={`rounded-lg pt-1 pb-1 pr-3 pl-3 transition-all ml-5 whitespace-nowrap ${sort === "anime_title" ? "bg-[color:var(--red-border)]" : "bg-[color:var(--jet)]"}`} onClick={() => handleSortChange("anime_title")}>Anime Title</button>
+                            <button className={`rounded-lg pt-1 pb-1 pr-3 pl-3 transition-all ml-5 whitespace-nowrap ${sort === "list_score" ? "bg-[color:var(--red-border)]" : "bg-[color:var(--jet)]"}`} onClick={() => handleSortChange("list_score")}>List Score</button>
+                            <button className={`rounded-lg pt-1 pb-1 pr-3 pl-3 transition-all ml-5 mr-5 whitespace-nowrap ${sort === "list_updated_at" ? "bg-[color:var(--red-border)]" : "bg-[color:var(--jet)]"}`} onClick={() => handleSortChange("list_updated_at")}>List Updated At</button>
+                        </div>
                 }
             </div>
             {
@@ -124,7 +141,7 @@ export default function AnimeUserList({ username }) {
                         >
                             {
                                 (list.length === 0 && hasMore === false) ? <div className="w-full h-full full-flex pt-[250px]"><EmptyIcon /></div> :
-                                    <Cards list={list} card={card} count={count} />
+                                    <Cards list={list} card={card} count={count} rate={false}/>
                             }
                         </InfiniteScroll>
                     </div> : <h1 className="ranking_card mt-[250px]">User Not Found!</h1>
